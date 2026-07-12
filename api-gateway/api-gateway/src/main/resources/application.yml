@@ -1,0 +1,75 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: API-GATEWAY
+  profiles:
+    active: dev
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: auth-service
+              uri: lb://AUTH-SERVICE
+              predicates:
+                - Path=/api/v1/auth/**
+
+            - id: productos-service
+              uri: lb://PRODUCTOS-SERVICE
+              predicates:
+                - Path=/api/productos/**
+
+            - id: categorias-service
+              uri: lb://CATEGORIAS-SERVICE
+              predicates:
+                - Path=/api/categorias/**
+
+            - id: empleados-service
+              uri: lb://EMPLEADOS-SERVICE
+              predicates:
+                - Path=/api/empleados/**
+
+            - id: inventario-service
+              uri: lb://INVENTARIO-SERVICE
+              predicates:
+                - Path=/api/inventario/**
+
+            - id: notificaciones-service
+              uri: lb://NOTIFICACIONES-SERVICE
+              predicates:
+                - Path=/api/notificaciones/**
+
+            - id: usuarios-service
+              uri: lb://USUARIOS-SERVICE
+              predicates:
+                - Path=/api/usuarios/**
+
+            - id: pedidos-service
+              uri: lb://PEDIDOS-SERVICE
+              predicates:
+                - Path=/api/pedidos/**
+
+            - id: proveedores-service
+              uri: lb://PROVEEDORES-SERVICE
+              predicates:
+                - Path=/api/proveedores/**
+
+            - id: sucursales-service
+              uri: lb://SUCURSALES-SERVICE
+              predicates:
+                - Path=/api/sucursales/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+springdoc:
+  enable-hateoas: false
